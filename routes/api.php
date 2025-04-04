@@ -6,6 +6,7 @@ use App\Http\Controllers\BackendController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\QuerysController;
+use App\Http\Controllers\SaleController;
 use App\Http\Middleware\UppercaseName;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CheckValueInHeader;
@@ -29,23 +30,25 @@ Route::get('/query/method/join', [QuerysController::class, 'join']);
 Route::get('/query/method/group', [QuerysController::class, 'groupBy']);
 
 Route::apiResource("/product", ProductController::class)
-    ->middleware([/*"checkvalue","owo"*/'jwt.auth',LogRequests::class]);
+    ->middleware([/*"checkvalue","owo"*/'jwt.auth', LogRequests::class]);
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-Route::middleware("jwt.auth")->group(function (){
-    Route::get('who',[AuthController::class, 'who']);
-    Route::post('logout',[AuthController::class, 'logout']);
-    Route::post('refresh',[AuthController::class, 'refresh']);
+Route::middleware("jwt.auth")->group(function () {
+    Route::get('who', [AuthController::class, 'who']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
 });
 
-Route::get('/info/message', [InfoController::class , 'message']);
-Route::get('/info/tax/{id}', [InfoController::class , 'iva']);
-Route::get('/info/encrypt/{data}', [InfoController::class , 'encrypt']);
-Route::get('/info/decrypt/{data}', [InfoController::class , 'decrypt']);
-Route::get('/info/encryptemail/{id}', [InfoController::class , 'encryptemail']);
-Route::get('/info/singleton', [InfoController::class , 'singleton']);
+Route::get('/info/message', [InfoController::class, 'message']);
+Route::get('/info/tax/{id}', [InfoController::class, 'iva']);
+Route::get('/info/encrypt/{data}', [InfoController::class, 'encrypt']);
+Route::get('/info/decrypt/{data}', [InfoController::class, 'decrypt']);
+Route::get('/info/encryptemail/{id}', [InfoController::class, 'encryptemail']);
+Route::get('/info/singleton', [InfoController::class, 'singleton']);
 
-Route::get('/info/encryptemail2/{id}', [InfoController::class , 'encryptemail2']);
-Route::get('/api', [ApiController::class , 'get']);
+Route::get('/info/encryptemail2/{id}', [InfoController::class, 'encryptemail2']);
+Route::get('/api', [ApiController::class, 'get']);
+Route::get('/sale', [SaleController::class, 'get']);
+Route::post('/sale', [SaleController::class, 'create']);
