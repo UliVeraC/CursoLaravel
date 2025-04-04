@@ -14,7 +14,7 @@ class SaleModel extends Model
     protected $fillable = ['email', 'total', 'sale_date'];
 
     protected $hidden = [
-        'createdd_at',
+        'created_at',
         'updated_at',
         'deleted_at'
     ];
